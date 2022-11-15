@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('chats', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50)->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

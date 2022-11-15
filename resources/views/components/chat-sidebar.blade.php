@@ -1,4 +1,4 @@
-@props(['user'])
+@props(['user', 'activechat'])
 
 <div class="fixed top-0 left-0 h-full w-full max-w-[400px] bg-[#ffffff] border-r-[#ddd] border-r-[1px]">
     <div class="sticky top-0 left-0 w-full h-[60px] flex items-center gap-[16px] px-[16px]">
@@ -11,9 +11,19 @@
         <input type="text" placeholder="Search" class="bg-[#f4f6f6] h-[40px] w-full outline-0 border-0 rounded-[10px]">
     </div>
 
+    @foreach($user->chats as $chat)
+
+        @if("$chat->id" == "$activechat->id")
+            <x-sidebar-chat :chat="$chat" active="true"/>
+        @else
+            <x-sidebar-chat :chat="$chat" active="false"/>
+        @endif
+    @endforeach
+
     <div class="w-full max-w-[400px] bg-[#f4f6f6] fixed bottom-0 left-0 h-[76px]  border-r-[#ddd] border-r-[1px] flex gap-[16px] px-[16px] items-center justify-between">
         <div class="flex items-center gap-[16px]">
-            <img class="rounded-full w-[50px] h-[50px]" src={{$user->image_link}}>
+            <x-user-image :user="$user"/>
+
             <div>
                 <p class="text-[18px] font-bold">{{$user->name}}</p>
                 <p class="text-[14px] text-[#0066ff] font-bold">{{'@'}}{{$user->username}}</p>
