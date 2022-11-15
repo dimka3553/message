@@ -6,24 +6,16 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
-        Schema::create('chat_users', function (Blueprint $table) {
+        Schema::create('chat_user', function (Blueprint $table) {
             $table->foreignId('user_id');
             $table->foreignId('chat_id');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+
     public function down()
     {
         Schema::dropIfExists('chat_users');

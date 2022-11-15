@@ -17,7 +17,8 @@ class ChatUserFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'chat_id' => fake()->numberBetween(1, 10),
+            'user_id' => fake()->numberBetween(1, 10),
         ];
     }
 }

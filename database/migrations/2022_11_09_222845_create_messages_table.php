@@ -16,9 +16,8 @@ return new class extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->foreignId('sender_id');
+            $table->foreignId('chat_id');
             $table->text('body');
-            $table->string('attachment_link')->nullable();
-            $table->string('attachment_type')->nullable();
             $table->timestamps();
         });
     }
