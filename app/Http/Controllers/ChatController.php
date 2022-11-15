@@ -6,7 +6,12 @@ use Illuminate\Http\Request;
 
 class ChatController extends Controller
 {
-    public function create(){
-        return view('chat.create');
+    public function index()
+    {
+        $user = auth()->user();
+        $chats = auth()->user()->chats;
+        return view('chats.index', compact('user', 'chats'));
     }
+
+
 }
