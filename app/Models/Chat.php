@@ -11,13 +11,11 @@ class Chat extends Model
     use HasFactory;
 
     public function lastMessage() {
-        return Message::all()
-            ->where('chat_id', '=', $this->id)
-            ->last();
+        return $this->messages->sortByDesc('created_at')->first();
     }
 
     public function messages(){
-        return $this->hasMany(Message::class, 'chat_id' )->get();
+        return $this->hasMany(Message::class, 'chat_id' );
     }
 
     public function users()

@@ -1,6 +1,7 @@
 <x-chats-layout>
 
-    <x-chat-sidebar :user="$user" :activechat=""/>
+    @ray('hello from index.blade.php')
+    <x-chat-sidebar :user="$user" :activechat="0" />
 </x-chats-layout>
 
 
