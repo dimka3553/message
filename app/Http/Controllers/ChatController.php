@@ -9,7 +9,7 @@ class ChatController extends Controller
 {
     public function index()
     {
-        $user = auth()->user();
+        $user = auth()->user()->load('chats.messages.sender');
 
         return view('chats.index', compact('user'));
     }

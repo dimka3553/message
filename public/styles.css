@@ -6,3 +6,7 @@
 body{
     font-family: 'DM Sans', sans-serif;
 }
+
+.bottom-message-form{
+    max-width: calc(100% - 400px);
+}

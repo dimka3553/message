@@ -9,11 +9,13 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group( function() {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return redirect(route('chats.index'));
     })->name('dashboard');
 
     Route::resource('chats', \App\Http\Controllers\ChatController::class);
 });
+
+Route::post('/message/save', [\App\Http\Controllers\MessageController::class, 'store']);
 
 
 require __DIR__.'/auth.php';
