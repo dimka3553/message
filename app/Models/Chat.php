@@ -11,7 +11,7 @@ class Chat extends Model
     use HasFactory;
 
     public function lastMessage() {
-        return $this->messages->sortByDesc('created_at')->first();
+        return $this->messages->sortByDesc('id')->first();
     }
 
     public function messages(){

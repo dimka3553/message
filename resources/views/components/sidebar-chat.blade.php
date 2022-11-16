@@ -1,5 +1,6 @@
 @props(['chat', 'active'])
 
+
 <a href={{route('chats.show', $chat->id)}}>
     <div class="flex h-[60px] w-full items-center gap-[16px] px-[16px] relative hover:bg-[#f4f6f6] transition-[0.2s] cursor-pointer @if($active == "true")!bg-[#0066ffaa]@endif">
 

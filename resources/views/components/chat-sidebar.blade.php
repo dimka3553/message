@@ -1,6 +1,7 @@
 @props(['user', 'activechat'])
 
 
+
 <div class="fixed top-0 left-0 h-full w-full max-w-[400px] bg-[#ffffff] border-r-[#ddd] border-r-[1px]">
     <div class="sticky top-0 left-0 w-full h-[60px] flex items-center gap-[16px] px-[16px]">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -13,7 +14,6 @@
     </div>
 
     @foreach($user->chats as $chat)
-        @ray('hello from foreach'.$loop->index)
 
         @if("$chat->id" == "$activechat")
             <x-sidebar-chat :chat="$chat" active="true"/>

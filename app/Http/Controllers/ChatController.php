@@ -15,15 +15,12 @@ class ChatController extends Controller
     }
 
     public function show(Chat $chat)
-
     {
-        $chat->load('users.chats.messages', 'users.chats.users');
+        $user = auth()->user()->load('chats.messages.sender');
 
-        $user = auth()->user();
         if($user->chats->contains($chat)){
-            $messages = $chat->messages;
-            $users = $chat->users;
-            return view('chats.show', compact('chat', 'user', 'messages', 'users'));
+            $chat = $user->chats->where('id', '=', $chat->id)->sole();
+            return view('chats.show', compact('chat', 'user'));
         } else {
             return redirect()->route('chats.index');
         }
