@@ -19,10 +19,7 @@
                         <p class="text-[13px] text-[#999999]">{{$chat->users->count()}} participants</p>
                     </div>
                 </div>
-                @foreach($chat->messages as $message)
-                    <x-message :message="$message" :user="$user"/>
-
-                @endforeach
+               <livewire:messages :chat="$chat"/>
                 <div class="fixed bottom-0 w-[100%] border-t-[1px] border-t-[#dddddd] h-[60px] bg-white bottom-message-form z-[51] " >
                     <form method="post" action="{{url('/message/save')}} ">
                         @csrf

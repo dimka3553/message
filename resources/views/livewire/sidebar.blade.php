@@ -1,7 +1,3 @@
-@props(['user', 'activechat'])
-
-
-
 <div class="fixed top-0 left-0 h-full w-full max-w-[400px] bg-[#ffffff] border-r-[#ddd] border-r-[1px] z-50 pb-[76px] sidebar">
     <div class="overflow-auto allchats">
         <div class="sticky top-0 left-0 w-full h-[60px] flex items-center gap-[16px] px-[16px] bg-white z-[51]">
@@ -16,7 +12,6 @@
 
             <input type="text" placeholder="Search" class="bg-[#f4f6f6] h-[40px] w-full outline-0 border-0 rounded-[10px]">
         </div>
-       <livewire:sidebar-chats :user="$user" :activechat="$activechat"/>
 
     </div>
 
@@ -43,29 +38,29 @@
             </x-dropdown-link>
         </form>
     </div>
+
+    <x-create-chat-modal />
+
+    <script>
+        const createchat = document.querySelector('.createchat');
+        const createchatmodal = document.querySelector('.createchatmodal');
+        const createchatmodalclose = document.querySelector('.createchatmodalclose');
+        const createchatmodaloverlay = document.querySelector('.createchatmodaloverlay');
+
+        createchat.addEventListener('click', () => {
+            createchatmodal.classList.add('active');
+            createchatmodaloverlay.classList.add('active');
+        });
+
+        createchatmodalclose.addEventListener('click', () => {
+            createchatmodal.classList.remove('active');
+            createchatmodaloverlay.classList.remove('active');
+
+        });
+        createchatmodaloverlay.addEventListener('click', () => {
+            createchatmodal.classList.remove('active');
+            createchatmodaloverlay.classList.remove('active');
+        });
+
+    </script>
 </div>
-
-<x-create-chat-modal />
-
-<script>
-    const createchat = document.querySelector('.createchat');
-    const createchatmodal = document.querySelector('.createchatmodal');
-    const createchatmodalclose = document.querySelector('.createchatmodalclose');
-    const createchatmodaloverlay = document.querySelector('.createchatmodaloverlay');
-
-    createchat.addEventListener('click', () => {
-        createchatmodal.classList.add('active');
-        createchatmodaloverlay.classList.add('active');
-    });
-
-    createchatmodalclose.addEventListener('click', () => {
-        createchatmodal.classList.remove('active');
-        createchatmodaloverlay.classList.remove('active');
-
-    });
-    createchatmodaloverlay.addEventListener('click', () => {
-        createchatmodal.classList.remove('active');
-        createchatmodaloverlay.classList.remove('active');
-    });
-
-</script>
