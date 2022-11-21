@@ -24,10 +24,10 @@
 
                 @endforeach
                 <div class="fixed bottom-0 w-[100%] border-t-[1px] border-t-[#dddddd] h-[60px] bg-white bottom-message-form z-[51] " >
-                    <form method="post" action="{{url('/message/save')}}">
+                    <form method="post" action="{{url('/message/save')}} ">
                         @csrf
                         @method('post')
-                        <input type="text" name="body" class="w-full h-[60px] border-0" placeholder="Send Message..." required maxlength="1024">
+                        <input type="text" name="body" class="w-full h-[60px] border-0" placeholder="Send Message..." autofocus required maxlength="1024">
                         <input type="hidden" name="chat_id" value="{{$chat->id}}">
                         <button class="absolute mt-[10px] right-[16px] z-[52] rounded-full bg-[#0066ff] w-[40px] h-[40px] text-white pl-[16px]" type="submit">
                             <svg width="11" height="18" viewBox="0 0 11 18" fill="none" xmlns="http://www.w3.org/2000/svg">
