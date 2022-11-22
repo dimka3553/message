@@ -1,4 +1,4 @@
-<div wire:poll>
+<div wire:poll.500ms>
     @foreach($chat->messages as $message)
         <x-message :message="$message" :user="auth()->user()"/>
 
@@ -19,7 +19,7 @@
         document.addEventListener('scroll', function() {
             isAtBottom = isScrolledToBottom();
         });
-        
+
         document.addEventListener("DOMContentLoaded", () => {
             Livewire.hook('element.updated', (el, component) => {
                 if(isAtBottom){

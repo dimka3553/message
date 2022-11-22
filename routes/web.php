@@ -13,6 +13,7 @@ Route::middleware(['auth', 'verified'])->group( function() {
     })->name('dashboard');
 
     Route::resource('chats', \App\Http\Controllers\ChatController::class);
+    Route::resource('users', \App\Http\Controllers\UserController::class);
 });
 
 Route::post('/message/save', [\App\Http\Controllers\MessageController::class, 'store']);

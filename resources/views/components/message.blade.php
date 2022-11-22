@@ -2,7 +2,7 @@
 
 <div class="flex gap-[16px] p-[16px] break-words message">
     <div class="pt-[3.5px]">
-        <x-user-image :user="$message->sender" />
+        <x-user-image :user="$message->sender" :size="40"/>
     </div>
     <div class="w-full break-words msg-text min-w-0">
         <p class="text-[#{{substr(hash('ripemd160', $message->sender->email),0,6)}}] font-bold ">

@@ -10,7 +10,7 @@ body{
 .bottom-message-form{
     max-width: calc(100% - 400px);
 }
-.createchatmodal{
+.modal{
     max-width: 400px;
     width: 100%;
     background: white;
@@ -29,7 +29,7 @@ body{
     left: 50%;
 }
 
-.createchatmodaloverlay{
+.modaloverlay{
     position: fixed;
     top: 0;
     left: 0;
@@ -42,12 +42,12 @@ body{
     transition: all 0.3s ease;
 }
 
-.createchatmodaloverlay.active{
+.modaloverlay.active{
     visibility: visible;
     opacity: 1;
 }
 
-.createchatmodal.active{
+.modal.active{
     visibility: visible;
     opacity: 1;
     bottom: 50%;
@@ -65,7 +65,7 @@ body{
 }
 
 @media(max-width: 400px){
-    .createchatmodal.active{
+    .modal.active{
         border-radius: 10px 10px 0 0;
         bottom: 0;
         left:0;

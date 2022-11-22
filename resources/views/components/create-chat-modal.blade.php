@@ -1,4 +1,4 @@
-<div class="createchatmodal">
+<div class="createchatmodal modal">
 
     <div class="flex items-center justify-between h-[60px]">
         <p class="text-[20px] font-bold">Create chat</p>
@@ -24,8 +24,27 @@
 
 </div>
 
-<div class="createchatmodaloverlay"></div>
+<div class="createchatmodaloverlay modaloverlay"></div>
 
 <script>
-    // use ajax to create suggestions for users when text is entered in the input field
+    const createchat = document.querySelector('.createchat');
+    const createchatmodal = document.querySelector('.createchatmodal');
+    const createchatmodalclose = document.querySelector('.createchatmodalclose');
+    const createchatmodaloverlay = document.querySelector('.createchatmodaloverlay');
+
+    createchat.addEventListener('click', () => {
+        createchatmodal.classList.add('active');
+        createchatmodaloverlay.classList.add('active');
+    });
+
+    createchatmodalclose.addEventListener('click', () => {
+        createchatmodal.classList.remove('active');
+        createchatmodaloverlay.classList.remove('active');
+
+    });
+    createchatmodaloverlay.addEventListener('click', () => {
+        createchatmodal.classList.remove('active');
+        createchatmodaloverlay.classList.remove('active');
+    });
+
 </script>
