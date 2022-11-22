@@ -1,10 +1,11 @@
-@props(['chat'])
+@props(['chat', 'size'])
 
 
-@if($chat->image_link !== null)
-    <img src="{{$chat->image_link}}" alt="chat image" class="min-h-[40px] min-w-[40px]  w-[40px] h-[40px] rounded-full">
+@if( $chat->media->first()?->getUrl('avatar') !== null)
+
+    <img src="{{$chat->media->first()?->getUrl('avatar')}}" alt="chat image" class="min-h-[{{$size}}px] min-w-[{{$size}}px] w-[{{$size}}px] h-[{{$size}}px] rounded-full">
 @else
-    <div class="w-[40px] h-[40px] rounded-full min-h-[40px] min-w-[40px] bg-[#{{substr(hash('ripemd160', $chat->id),0,6)}}] items-center justify-center flex">
-        <p class="text-[18px] font-bold text-[#ffffff] text-center">{{$chat->name[0]}}</p>
+    <div class="w-[{{$size}}px] h-[{{$size}}px] rounded-full min-h-[{{$size}}px] min-w-[{{$size}}px]  bg-[#{{substr(hash('ripemd160', $chat->id),0,6)}}] items-center justify-center flex">
+        <p class="text-[{{$size*0.45}}px] font-bold text-[#ffffff] ">{{$chat->name[0]}}</p>
     </div>
 @endif

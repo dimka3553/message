@@ -5,10 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use \App\Models\Message;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Image\Manipulations;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Chat extends Model
+class Chat extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     protected $fillable = ['name'];
 
@@ -38,5 +42,12 @@ class Chat extends Model
                 $message->save();
             }
         });
+    }
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this
+            ->addMediaConversion('avatar')
+            ->fit(Manipulations::FIT_CROP, 150, 150)
+            ->nonQueued();
     }
 }

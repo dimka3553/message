@@ -1,9 +1,7 @@
-<div wire:poll.500ms>
+<div wire:poll id="allmessages">
     @foreach($chat->messages as $message)
         <x-message :message="$message" :user="auth()->user()"/>
-
     @endforeach
-
     <script>
 
         let isAtBottom = true;

@@ -37,13 +37,9 @@ class ChatController extends Controller
         }
 
         $chat->save();
-        $chat->users()->attach(auth()->id());
 
        if($request->users != null){
-
-           //remove spaces from users
-
-           $users = explode(',', str_replace(' ', '', $request->users));
+           $users = explode(',', str_replace(' ', '', $request->users.','.auth()->user()->username));
 
            $users = array_unique($users);
 
@@ -57,6 +53,39 @@ class ChatController extends Controller
            }
               $chat->users()->attach($user_list);
         }
+        return redirect()->route('chats.show', $chat);
+    }
+
+    public function update(Request $request, Chat $chat)
+    {
+        $chat->name = $request->name;
+
+       if($request->users != null){
+           $users = explode(',', str_replace(' ', '', $request->users.','.auth()->user()->username));
+
+           $users = array_unique($users);
+
+           $users_already_in_chat = $chat->users->pluck('username')->toArray();
+
+           $users_to_add = array_diff($users, $users_already_in_chat);
+
+           $user_list = [];
+
+           foreach($users_to_add as $user){
+                $user = User::where('username', '=', $user)->first();
+                if($user != null){
+                     $user_list[] = $user->id;
+                }
+           }
+              $chat->users()->sync($user_list);
+        }
+        if($request->has('avatarchat')) {
+            $chat->media()->first()?->delete();
+            $chat->addMediaFromRequest('avatarchat')->toMediaCollection();
+        }
+
+        $chat->save();
+
         return redirect()->route('chats.show', $chat);
     }
 }

@@ -1,6 +1,6 @@
 @props(['message', 'user'])
 
-<div class="flex gap-[16px] p-[16px] break-words message">
+<div class="flex gap-[16px] p-[16px] break-words message" mid="{{$message->id}}">
     <div class="pt-[3.5px]">
         <x-user-image :user="$message->sender" :size="40"/>
     </div>
