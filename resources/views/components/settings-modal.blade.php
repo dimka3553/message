@@ -1,4 +1,4 @@
-<form action="{{route('users.update', $user)}}" method="POST" enctype="multipart/form-data">
+
 
     <div class="settingsmodal modal !p-0" >
         <div class="flex items-center justify-between h-[60px] bg-[#f4f6f6]  rounded-t-[20px] px-[20px]">
@@ -10,11 +10,10 @@
                 </svg>
             </div>
         </div>
+        <form action="{{route('users.update', $user)}}" method="POST" enctype="multipart/form-data">
         <div class="bg-[#F4F6F6] p-5">
-
             <div class="flex gap-[20px]">
                 <div class="">
-
                     <div class="relative w-[80px] h-[80px]">
                         <div class="absolute top-0 left-0 w-full h-full rounded-full z-[100] overflow-hidden">
                             <img  id="uploadedImage" class="w-full h-full" />
@@ -37,16 +36,16 @@
                     <div class="">
                         <input type="text" name="name" placeholder="Name" maxlength="80" class="bg-transparent w-full min-w-0 text-[18px]" value="{{$user->name}}" required>
                         <input type="text" name="username" maxlength="50" placeholder="Username" class="bg-transparent min-w-0  w-full mt-[-0.5px]" value="{{$user->username}}" required>
+                        <input type="submit" value="" class="userinfosubmit bg-[transparent] h-0 w-0 hidden">
                     </div>
-
                 </div>
-
         </div>
+        </form>
         <div class="flex justify-between items-center p-5 gap-[20px]">
             <form method="POST" action="{{ route('logout') }}" class="w-[50%]">
                 @csrf
                 <a href="route('logout')" class="w-[50%]"
-                 onclick="event.preventDefault();
+                   onclick="event.preventDefault();
                  this.closest('form').submit();">
                     <button class="border-[#F14646] border-[1px] text-[#F14646] w-full rounded-[8px]  h-[40px]">
                         {{ __('Log Out') }}
@@ -54,11 +53,12 @@
 
                 </a>
             </form>
-            <button type="submit" class="border-[#0066ff] border-[1px] text-[#0066ff] rounded-[8px] w-[50%] w-full h-[40px]">Save</button>
+            <button type="submit" class="saveuserinfo border-[#0066ff] border-[1px] text-[#0066ff] rounded-[8px] w-[50%] w-full h-[40px]">Save</button>
         </div>
 
     </div>
-</form>
+
+
 
 <div class="settingsmodaloverlay modaloverlay"></div>
 
@@ -81,6 +81,12 @@
     settingsmodaloverlay.addEventListener('click', () => {
         settingsmodal.classList.remove('active');
         settingsmodaloverlay.classList.remove('active');
+    });
+
+    const saveuserinfo = document.querySelector('.saveuserinfo');
+    const userinfosubmit = document.querySelector('.userinfosubmit');
+    saveuserinfo.addEventListener('click', () => {
+        userinfosubmit.click();
     });
 
 </script>
