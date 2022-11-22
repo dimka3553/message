@@ -63,15 +63,14 @@ class ChatController extends Controller
        if($request->users != null){
            $users = explode(',', str_replace(' ', '', $request->users.','.auth()->user()->username));
 
-           $users = array_unique($users);
-
            $users_already_in_chat = $chat->users->pluck('username')->toArray();
 
-           $users_to_add = array_diff($users, $users_already_in_chat);
+           $users = array_merge($users_already_in_chat, $users);
+           $users = array_unique($users);
 
            $user_list = [];
 
-           foreach($users_to_add as $user){
+           foreach($users as $user){
                 $user = User::where('username', '=', $user)->first();
                 if($user != null){
                      $user_list[] = $user->id;
@@ -87,6 +86,18 @@ class ChatController extends Controller
         $chat->save();
 
         return redirect()->route('chats.show', $chat);
+    }
+
+
+    public function leave(Chat $id)
+    {
+
+        $chat = $id;
+        $chat->users()->detach(auth()->user()->id);
+        if($chat->users->count() == 0){
+            $chat->delete();
+        }
+        return redirect()->route('chats.index');
     }
 }
 

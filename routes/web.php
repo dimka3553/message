@@ -14,9 +14,11 @@ Route::middleware(['auth', 'verified'])->group( function() {
 
     Route::resource('chats', \App\Http\Controllers\ChatController::class);
     Route::resource('users', \App\Http\Controllers\UserController::class);
+    Route::post('/message/save', [\App\Http\Controllers\MessageController::class, 'store']);
+    Route::post('/chat/leave/{id}', [\App\Http\Controllers\ChatController::class, 'leave']);
 });
 
-Route::post('/message/save', [\App\Http\Controllers\MessageController::class, 'store']);
+
 
 
 require __DIR__.'/auth.php';

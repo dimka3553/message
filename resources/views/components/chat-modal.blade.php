@@ -2,8 +2,8 @@
 
 
 
-<div class="chatmodal modal !p-0" >
-    <div class="flex items-center justify-between h-[60px] bg-[#f4f6f6]  rounded-t-[20px] px-[20px]">
+<div class="chatmodal modal !p-0 max-h-[90%] overflow-auto" >
+    <div class="flex items-center justify-between h-[60px] bg-[#f4f6f6] sticky top-0 rounded-t-[20px] px-[20px] z-[4]">
         <p class="text-[20px] font-bold">Chat info</p>
         <div class="chatmodalclose h-10 w-10 flex justify-center items-center cursor-pointer">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -12,8 +12,8 @@
             </svg>
         </div>
     </div>
-    <form action="{{route('chats.update', $chat)}}" method="POST" enctype="multipart/form-data">
-        <div class="bg-[#F4F6F6] p-5">
+    <form class="sticky top-[60px] z-50" action="{{route('chats.update', $chat)}}" method="POST" enctype="multipart/form-data">
+        <div class="bg-[#F4F6F6] p-5 ">
             <div class="flex gap-[20px]">
                 <div class="">
                     <div class="relative w-[80px] h-[80px]">
@@ -36,16 +36,43 @@
                 @method('PUT')
                 @csrf
                 <div class="h-[80] items-center flex">
-                    <input type="text" name="name" placeholder="Name" maxlength="80" class="bg-transparent w-full h-[40px] min-w-0 text-[18px]" value="{{$chat->name}}" required>
-                    <input type="submit" value="" class="userinfosubmit bg-[transparent] h-0 w-0 hidden">
+                    <input type="text" name="name" placeholder="Name" maxlength="80" class="bg-transparent w-full h-[40px] rounded-l-[8px] min-w-0 text-[18px]" value="{{$chat->name}}" required>
                     <button type="submit" class="saveuserinfo border-[#0066ff] border-[1px] text-[#0066ff] rounded-r-[8px] w-[50%] w-full h-[40px]">Save</button>
                 </div>
             </div>
         </div>
     </form>
    <div>
-       <div class="h-[40px] flex items-center justify-between px-5 shadow-sm">
-           <span class="font-bold">{{$chat->users->count()}} Members</span>
+       <div class="h-[50px] flex items-center justify-between px-5 shadow-sm relative">
+           <form class="absolute flex hidden addusersform w-full right-0 pl-[100px] mr-[80px] " action="{{route('chats.update', $chat)}}" method="POST" enctype="multipart/form-data">
+               @method('PUT')
+               @csrf
+               <input type="text" name="users" placeholder="usernames" maxlength="300" class="w-full h-[40px] min-w-0 text-[18px] rounded-l-[8px] bg-white " value="" required>
+               <input type="hidden" name="name" value="{{$chat->name}}">
+               <button type="submit" class="saveuserinfo border-[#0066ff] border-[1px] text-[#0066ff] rounded-r-[8px] bg-white w-[50%] w-full h-[40px]">Add</button>
+           </form>
+           <span class="font-bold nummem">{{$chat->users->count()}} Members</span>
+           <div class="flex items-center gap-[16px]">
+               <form action="{{url('chat/leave/'.$chat->id)}}" method="POST">
+                     @csrf
+                   @method('POST')
+                   <button class="w-[40px] h-[40px] flex items-center justify-center cursor-pointer">
+                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                           <path d="M11.68 14.62L14.24 12.06L11.68 9.5M4 12.06H14.17" stroke="#F14646" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                           <path d="M12 4C16.42 4 20 7 20 12C20 17 16.42 20 12 20" stroke="#F14646" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                       </svg>
+                   </button>
+
+
+               </form>
+               <div class="w-[40px] h-[40px] flex items-center justify-center cursor-pointer addusers">
+                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                       <path d="M3.40991 22C3.40991 18.13 7.25991 15 11.9999 15C12.9599 15 13.8899 15.13 14.7599 15.37M11.9999 12C13.326 12 14.5978 11.4732 15.5354 10.5355C16.4731 9.59785 16.9999 8.32608 16.9999 7C16.9999 5.67392 16.4731 4.40215 15.5354 3.46447C14.5978 2.52678 13.326 2 11.9999 2C10.6738 2 9.40206 2.52678 8.46438 3.46447C7.5267 4.40215 6.99991 5.67392 6.99991 7C6.99991 8.32608 7.5267 9.59785 8.46438 10.5355C9.40206 11.4732 10.6738 12 11.9999 12V12Z" stroke="#888888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                       <path d="M19.49 17.98H16.51M18 16.52V19.51M22 18C22 18.32 21.96 18.63 21.88 18.93C21.79 19.33 21.63 19.72 21.42 20.06C21.0675 20.6525 20.5667 21.143 19.967 21.4831C19.3674 21.8233 18.6894 22.0014 18 22C17.0155 22.0029 16.0659 21.6352 15.34 20.97C15.04 20.71 14.78 20.4 14.58 20.06C14.1993 19.4404 13.9985 18.7272 14 18C13.9994 17.4745 14.1024 16.9541 14.3031 16.4685C14.5039 15.9829 14.7985 15.5417 15.1701 15.1701C15.5417 14.7985 15.9829 14.5039 16.4685 14.3031C16.9541 14.1024 17.4745 13.9993 18 14C19.18 14 20.25 14.51 20.97 15.33C21.61 16.04 22 16.98 22 18Z" stroke="#888888" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                   </svg>
+               </div>
+           </div>
+
        </div>
        @foreach($chat->users as $user)
             <div class="flex items-center gap-[16px] px-5 py-2">
@@ -83,6 +110,15 @@
     chatmodaloverlay.addEventListener('click', () => {
         chatmodal.classList.remove('active');
         chatmodaloverlay.classList.remove('active');
+    });
+
+
+    const addusers = document.querySelector('.addusers');
+    const addusersform = document.querySelector('.addusersform');
+    const nummem = document.querySelector('.nummem');
+    addusers.addEventListener('click', () => {
+        addusersform.classList.toggle('hidden');
+        nummem.classList.toggle('z-[-3]');
     });
 
 </script>
