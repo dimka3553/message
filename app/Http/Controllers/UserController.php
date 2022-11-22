@@ -11,7 +11,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'username' => 'required|unique:users,username,' . $request->user()->id,
-            'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048|nullable',
+            'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:4096|nullable',
         ]);
 
 
