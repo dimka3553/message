@@ -124,6 +124,26 @@
         $('.sendimagemodaloverlay').removeClass('active');
         $('input[name="body"]').attr('required', 'required');
     });
+    
+    $(document).on('paste', 'input[name="body"]', function (e) {
+        var items = (e.clipboardData || e.originalEvent.clipboardData).items;
+        for (index in items) {
+            var item = items[index];
+            if (item.kind === 'file') {
+                var blob = item.getAsFile();
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    var file = new File([blob], 'image.png', {type: 'image/png', lastModified: Date.now()});
+                    var data = new DataTransfer();
+                    data.items.add(file);
+                    $('.sendimage').prop('files', data.files);
+                    $('.sendimage').trigger('change');
+                };
+                reader.readAsDataURL(blob);
+            }
+        }
+    });
+
 
 
 
