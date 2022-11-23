@@ -63,6 +63,11 @@ body{
 .msg-text{
     max-width: 100%;
 }
+.messageimg{
+    max-width: min(400px, 100%);
+    height: auto;
+}
+
 
 @media(max-width: 400px){
     .modal.active{
