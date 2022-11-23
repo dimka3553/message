@@ -6,12 +6,15 @@
     <div class="pl-[400px] pb-[60px] relative w-full showview">
         <div class="break-words w-full">
             <div class="break-words">
-                <div class="sticky top-0 w-full border-b-[1px] border-b-[#dddddd] h-[60px] bg-white flex items-center px-[16px] justify-between gap-[16px]">
+                <div
+                    class="sticky top-0 w-full border-b-[1px] border-b-[#dddddd] h-[60px] bg-white flex items-center px-[16px] justify-between gap-[16px]">
                     <div class="flex items-center gap-[16px]">
                         <a href="{{route('chats.index')}}" class="back hidden">
                             <div class="flex items-center justify-center w-[40px] h-[40px] back hidden">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M20 11H7.83L13.42 5.41L12 4L4 12L12 20L13.41 18.59L7.83 13H20V11Z" fill="#999999"/>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 11H7.83L13.42 5.41L12 4L4 12L12 20L13.41 18.59L7.83 13H20V11Z"
+                                          fill="#999999"/>
                                 </svg>
                             </div>
                         </a>
@@ -30,47 +33,126 @@
                     </div>
                 </div>
 
-               <livewire:messages :chat="$chat"/>
-                <div class="fixed bottom-0 w-[100%] border-t-[1px] border-t-[#dddddd] h-[60px] bg-white bottom-message-form z-[51] " >
-                    <form method="post" action="{{url('/message/save')}} " id="sendmessage">
-                        @csrf
-                        @method('post')
-                        <input type="text" name="body" class="w-full h-[60px] border-0 !outline-0 pr-[80px] pl-[16px]" placeholder="Send Message..." autofocus required maxlength="1024">
+                <livewire:messages :chat="$chat"/>
+                <form method="post" action="{{url('/message/save')}} " id="sendmessage" enctype="multipart/form-data">
+                    @csrf
+                    @method('post')
+                    <div
+                        class="fixed bottom-0 w-[100%] border-t-[1px] border-t-[#dddddd] h-[60px] bg-white bottom-message-form z-[51] flex gap-[16px] px-[16px] items-center justify-between">
+                        <label
+                            class="w-[40px] h-[40px] min-w-[40px] flex items-center justify-center cursor-pointer sendimage"
+                            for="attachment">
+                            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M20.6799 15.96L17.5499 8.65C16.4899 6.17 14.5399 6.07 13.2299 8.43L11.3399 11.84C10.3799 13.57 8.58993 13.72 7.34993 12.17L7.12993 11.89C5.83993 10.27 4.01993 10.47 3.08993 12.32L1.36993 15.77C0.159926 18.17 1.90993 21 4.58993 21H17.3499C19.9499 21 21.6999 18.35 20.6799 15.96ZM5.96993 7C6.76558 7 7.52864 6.68393 8.09125 6.12132C8.65386 5.55871 8.96993 4.79565 8.96993 4C8.96993 3.20435 8.65386 2.44129 8.09125 1.87868C7.52864 1.31607 6.76558 1 5.96993 1C5.17428 1 4.41121 1.31607 3.84861 1.87868C3.286 2.44129 2.96993 3.20435 2.96993 4C2.96993 4.79565 3.286 5.55871 3.84861 6.12132C4.41121 6.68393 5.17428 7 5.96993 7V7Z"
+                                    stroke="#666666" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </label>
+                        <input type="file" name="attachment" id="attachment" class="hidden sendimage" accept="image/*">
+                        <input autocomplete="off" type="text" name="body" class="w-full h-[60px] !outline-0 "
+                               placeholder="Send Message..." autofocus required maxlength="1024">
                         <input type="hidden" name="chat_id" value="{{$chat->id}}">
-                        <button class="absolute mt-[10px] right-[16px] z-[52] rounded-full bg-[#0066ff] w-[40px] h-[40px] text-white pl-[16px]" type="submit">
-                            <svg width="11" height="18" viewBox="0 0 11 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <button
+                            class=" rounded-full bg-[#0066ff] w-[40px] min-w-[40px] h-[40px] text-white flex items-center justify-center"
+                            type="submit">
+                            <svg width="11" height="18" viewBox="0 0 11 18" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1 17L9 9L1 1" stroke="white" stroke-width="2"/>
                             </svg>
                         </button>
-                    </form>
-                </div>
+                    </div>
+                    <div class="modal sendimagemodal">
+                        <div class="flex items-center justify-between h-[60px]">
+                            <p class="text-[20px] font-bold">Send image</p>
+                            <div class="sendimageclose h-10 w-10 flex justify-center items-center cursor-pointer">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="0.0810547" y="14.701" width="20.676" height="1.83787" transform="rotate(-45 0.0810547 14.701)" fill="#999999"/>
+                                    <rect x="1.2998" width="20.676" height="1.83787" transform="rotate(45 1.2998 0)" fill="#999999"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <img src="#" class="sendimagepreview">
+                        <input type="text" name="caption" class="w-full h-[40px] outline-0 border-b-[#dddddd] border-b-2"
+                               placeholder="Add a caption..." autocomplete="off" maxlength="1024">
+                        <div class="flex justify-end mt-3">
+                            <button
+                                class=" rounded-[8px] bg-[white] px-6 h-[40px] text-[#0066ff] border-[1px] border-[#0066ff] sendimagebtn"
+                                type="submit">
+                                Send image
+                            </button>
+                        </div>
+
+                    </div>
+                    <div class="sendimagemodaloverlay modaloverlay">
+
+                    </div>
+                </form>
+            </div>
+
             </div>
         </div>
         <x-chat-modal :chat="$chat" :user="$user"/>
-    </div>
+
 
 </x-chats-layout>
 
 <script>
+    $(document).on('change', '.sendimage', function () {
+        var file = this.files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('.sendimagepreview').attr('src', e.target.result);
+            $('.sendimagemodal').addClass('active');
+            $('.sendimagemodaloverlay').addClass('active');
+            $('input[name="caption"]').val($('input[name="body"]').val());
+            $('input[name="body"]').removeAttr('required');
+        }
+        reader.readAsDataURL(file);
+    });
+
+    $(document).on('click', '.sendimageclose', function () {
+        $('.sendimage').val('');
+        $('.sendimagemodal').removeClass('active');
+        $('.sendimagemodaloverlay').removeClass('active');
+        $('input[name="body"]').attr('required', 'required');
+    });
+
+    $(document).on('click', '.sendimagemodaloverlay', function () {
+        $('.sendimage').val('');
+        $('.sendimagemodal').removeClass('active');
+        $('.sendimagemodaloverlay').removeClass('active');
+        $('input[name="body"]').attr('required', 'required');
+    });
+
+
+
+</script>
+
+<script>
     function scrollToBottom() {
-        window.scrollTo(0,document.body.scrollHeight);
+        window.scrollTo(0, document.body.scrollHeight);
     }
+
     scrollToBottom();
 </script>
 
 
 <style>
-    @media(max-width: 950px) {
+    @media (max-width: 950px) {
         .sidebar {
             display: none;
         }
+
         .showview {
             padding-left: 0;
         }
-        .bottom-message-form{
+
+        .bottom-message-form {
             max-width: 100%;
             left: 0;
         }
+
         .back {
             display: flex;
         }
@@ -79,51 +161,51 @@
 
 <script>
 
-    document.getElementById('sendmessage').addEventListener('submit', function(e) {
-        e.preventDefault();
-        document.getElementById('allmessages').removeAttribute('wire:poll');
+    {{--document.getElementById('sendmessage').addEventListener('submit', function (e) {--}}
+    {{--    // e.preventDefault();--}}
+    {{--    document.getElementById('allmessages').removeAttribute('wire:poll');--}}
 
-        var form = this;
-        var data = new FormData(form);
-        var xhr = new XMLHttpRequest();
-        form.reset();
-        var messages = document.getElementById('allmessages');
-        messages.innerHTML += `
-        <div class="flex gap-[16px] p-[16px] break-words message">
-            <div class="pt-[3.5px]">
-                @if( $user->media->first()?->getUrl('avatar') !== null)
+    {{--    var form = this;--}}
+    {{--    var data = new FormData(form);--}}
+    {{--    var xhr = new XMLHttpRequest();--}}
+    {{--    form.reset();--}}
+    {{--    var messages = document.getElementById('allmessages');--}}
+    {{--    messages.innerHTML += `--}}
+    {{--    <div class="flex gap-[16px] p-[16px] break-words message">--}}
+    {{--        <div class="pt-[3.5px]">--}}
+    {{--            @if( $user->media->first()?->getUrl('avatar') !== null)--}}
 
-        <img src="{{$user->media->first()?->getUrl('avatar')}}" alt="user image" class="min-h-[40px] min-w-[40px] w-[40px] h-[40px] rounded-full">
-                @else
-        <div class="w-[40px] h-[40px] rounded-full min-h-[40px] min-w-[40px]  bg-[#{{substr(hash('ripemd160', $user->email),0,6)}}] items-center justify-center flex">
-                        <p class="text-[18px] font-bold text-[#ffffff] ">{{$user->name[0]}}</p>
-                    </div>
-                @endif
+    {{--    <img src="{{$user->media->first()?->getUrl('avatar')}}" alt="user image" class="min-h-[40px] min-w-[40px] w-[40px] h-[40px] rounded-full">--}}
+    {{--            @else--}}
+    {{--    <div class="w-[40px] h-[40px] rounded-full min-h-[40px] min-w-[40px]  bg-[#{{substr(hash('ripemd160', $user->email),0,6)}}] items-center justify-center flex">--}}
+    {{--                    <p class="text-[18px] font-bold text-[#ffffff] ">{{$user->name[0]}}</p>--}}
+    {{--                </div>--}}
+    {{--            @endif--}}
 
-        </div>
-        <div class="w-full break-words msg-text min-w-0">
-            <p class="text-[#{{substr(hash('ripemd160', $user->email),0,6)}}] font-bold ">
-                    {{$user->name}} (You) <span class="text-[12px] font-normal text-[#999999]">now</span>
-                </p>
-                <p class="break-words w-full">
-                    ${data.get('body')}
-                </p>
-            </div>
-        </div>
-        `
-        window.scrollTo({
-            top: document.body.scrollHeight,
-            behavior: 'smooth'
-        });
+    {{--    </div>--}}
+    {{--    <div class="w-full break-words msg-text min-w-0">--}}
+    {{--        <p class="text-[#{{substr(hash('ripemd160', $user->email),0,6)}}] font-bold ">--}}
+    {{--                {{$user->name}} (You) <span class="text-[12px] font-normal text-[#999999]">now</span>--}}
+    {{--            </p>--}}
+    {{--            <p class="break-words w-full">--}}
+    {{--                ${data.get('body')}--}}
+    {{--            </p>--}}
+    {{--        </div>--}}
+    {{--    </div>--}}
+    {{--    `--}}
+    {{--    window.scrollTo({--}}
+    {{--        top: document.body.scrollHeight,--}}
+    {{--        behavior: 'smooth'--}}
+    {{--    });--}}
 
-        xhr.open(form.method, form.action);
-        xhr.send(data);
-        xhr.onload = function() {
-            //wait for 1 second and then add wire:poll and wire:poll.id
-            setTimeout(function(){
-                document.getElementById('allmessages').setAttribute('wire:poll', '');
-            }, 1000);
-        }
-    });
+    {{--    xhr.open(form.method, form.action);--}}
+    {{--    xhr.send(data);--}}
+    {{--    xhr.onload = function () {--}}
+    {{--        //wait for 1 second and then add wire:poll and wire:poll.id--}}
+    {{--        setTimeout(function () {--}}
+    {{--            document.getElementById('allmessages').setAttribute('wire:poll', '');--}}
+    {{--        }, 1000);--}}
+    {{--    }--}}
+    {{--});--}}
 
 </script>

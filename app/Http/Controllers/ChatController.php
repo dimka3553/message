@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Chat;
 use App\Models\User;
+use App\Models\Message;
 use Illuminate\Http\Request;
 
 class ChatController extends Controller
 {
     public function index()
     {
-        $user = auth()->user()->load('chats.messages.sender', 'chats.media');
+        $user = auth()->user()->load('chats.messages.sender', 'chats.media', 'chats.messages.media');
 
         return view('chats.index', compact('user'));
     }
@@ -75,8 +76,11 @@ class ChatController extends Controller
                      $user_list[] = $user->id;
                 }
            }
-              $chat->users()->sync($user_list);
+           $chat->users()->sync($user_list);
         }
+
+
+
         if($request->has('avatarchat')) {
             $chat->media()->first()?->delete();
             $chat->addMediaFromRequest('avatarchat')->toMediaCollection();
@@ -93,9 +97,18 @@ class ChatController extends Controller
 
         $chat = $id;
         $chat->users()->detach(auth()->user()->id);
+
+        //send message to chat that user left
+        $message = new Message;
+        $message->body = auth()->user()->name . ' left the chat';
+        $message->sender_id = auth()->user()->id;
+        $message->chat_id = $chat->id;
+        $message->save();
+
         if($chat->users->count() == 0){
             $chat->delete();
         }
+
         return redirect()->route('chats.index');
     }
 }

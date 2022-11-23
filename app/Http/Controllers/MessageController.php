@@ -10,12 +10,26 @@ class MessageController extends Controller
 {
     public function store(Request $request){
         if(auth()->user()->chats->contains('id', '=', $request->chat_id)){
-            $message = new Message;
-            $message->body = $request->body;
-            $message->chat_id = $request->chat_id;
-            $message->sender_id = auth()->id();
+            if($request->attachment != null){
+                $message = new Message;
+                //if caption is empty then set it to an invisible character
+                if($request->caption == null){
+                    $message->body = '';
+                } else {
+                    $message->body = $request->caption;
+                }
+                $message->chat_id = $request->chat_id;
+                $message->sender_id = auth()->id();
+                $message->addMediaFromRequest('attachment')->toMediaCollection();
+                $message->save();
 
-            $message->save();
+            } else {
+                $message = new Message;
+                $message->body = $request->body;
+                $message->chat_id = $request->chat_id;
+                $message->sender_id = auth()->id();
+                $message->save();
+            }
         }
 
 

@@ -42,6 +42,11 @@ class Chat extends Model implements HasMedia
                 $message->save();
             }
         });
+
+        static::deleted(function ($chat) {
+            $chat->messages()->delete();
+            $chat->clearMediaCollection();
+        });
     }
     public function registerMediaConversions(Media $media = null): void
     {
