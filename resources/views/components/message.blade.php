@@ -9,7 +9,7 @@
             {{$message->sender->name}}  @if($message->sender->id == $user->id) (You) @endif <span class="text-[12px] font-normal text-[#999999]">{{$message->created_at->diffForHumans()}}</span>
         </p>
         @if( $message->media->first()?->getUrl('chatview') !== null)
-            <img src="{{$message->media->first()?->getUrl('chatview')}}" alt="message image" class="messageimg max-h-[300px] w-auto h-auto w-full rounded-[8px] mt-[8px]">
+            <img src="{{$message->media->first()?->getUrl('chatview')}}" alt="message image" class="messageimg max-h-[300px] w-auto h-auto rounded-[8px] mt-[8px]">
         @endif
         <p class="break-words w-full">
             {{$message->body}}
