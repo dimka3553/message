@@ -8,13 +8,14 @@
             <div class="break-words">
                 <div class="sticky top-0 w-full border-b-[1px] border-b-[#dddddd] h-[60px] bg-white flex items-center px-[16px] justify-between gap-[16px]">
                     <div class="flex items-center gap-[16px]">
-                        <a href="{{route('chats.index')}}">
+                        <a href="{{route('chats.index')}}" class="back hidden">
                             <div class="flex items-center justify-center w-[40px] h-[40px] back hidden">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M20 11H7.83L13.42 5.41L12 4L4 12L12 20L13.41 18.59L7.83 13H20V11Z" fill="#999999"/>
                                 </svg>
                             </div>
                         </a>
+                        <x-chat-image :chat="$chat" :size="40"/>
                         <div class="">
                             <p class="font-bold text-[#{{substr(hash('ripemd160', $chat->id),0,6)}}]">{{$chat->name}}</p>
                             <p class="text-[13px] text-[#999999]">{{$chat->users->count()}} participants</p>
