@@ -11,14 +11,14 @@ class ChatController extends Controller
 {
     public function index()
     {
-        $user = auth()->user()->load('chats.messages.sender', 'chats.media', 'chats.messages.media');
+        $user = auth()->user()->load('chats.messages.sender', 'chats.media');
 
         return view('chats.index', compact('user'));
     }
 
     public function show(Chat $chat)
     {
-        $user = auth()->user()->load('chats.messages.sender.media', 'chats.media', 'chats.users.media');
+        $user = auth()->user()->load('chats.messages.sender.media', 'chats.media', 'chats.users.media', 'chats.messages.media');
 
         if($user->chats->contains($chat)){
             $chat = $user->chats->where('id', '=', $chat->id)->sole();
