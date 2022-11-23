@@ -38,21 +38,20 @@ class ChatController extends Controller
 
         $chat->save();
 
-       if($request->users != null){
-           $users = explode(',', str_replace(' ', '', $request->users.','.auth()->user()->username));
+        $users = explode(',', str_replace(' ', '', $request->users.','.auth()->user()->username));
 
-           $users = array_unique($users);
+        $users = array_unique($users);
 
-           $user_list = [];
+        $user_list = [];
 
-           foreach($users as $user){
-                $user = User::where('username', '=', $user)->first();
-                if($user != null){
-                     $user_list[] = $user->id;
-                }
-           }
-              $chat->users()->attach($user_list);
+        foreach($users as $user){
+            $user = User::where('username', '=', $user)->first();
+            if($user != null){
+                 $user_list[] = $user->id;
+            }
         }
+        $chat->users()->attach($user_list);
+
         return redirect()->route('chats.show', $chat);
     }
 

@@ -13,11 +13,11 @@
         @method('POST')
         @csrf
         <div class="flex flex-col gap-[16px]">
-            <input type="text" name="name" placeholder="Chat name" class="border-[1px] border-[#999999] rounded-[8px] h-[40px]" required>
-            <input type="text" name="users" placeholder="Users" class="border-[1px] border-[#999999] rounded-[8px] h-[40px]">
+            <input type="text" name="name" placeholder="Chat name" class="border-[1px] h-[40px] pl-[16px] border-[#dddddd] rounded-[8px] h-[40px]" required>
+            <input type="text" name="users" placeholder="Users" class="h-[40px] pl-[16px] border-[1px] border-[#dddddd] rounded-[8px] h-[40px]">
             <div class="suggestions"></div>
             <div class="flex justify-end">
-                <button type="submit" class="bg-[#0066ff] text-white rounded-[8px] p-[8px]">Create</button>
+                <button type="submit" class="bg-[white] text-[#0066ff] border-[#0066ff] border-[1px] rounded-[8px] p-[8px] px-[16px]">Create</button>
             </div>
         </div>
     </form>

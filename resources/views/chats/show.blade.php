@@ -34,7 +34,7 @@
                     <form method="post" action="{{url('/message/save')}} " id="sendmessage">
                         @csrf
                         @method('post')
-                        <input type="text" name="body" class="w-full h-[60px] border-0" placeholder="Send Message..." autofocus required maxlength="1024">
+                        <input type="text" name="body" class="w-full h-[60px] border-0 !outline-0 pr-[80px] pl-[16px]" placeholder="Send Message..." autofocus required maxlength="1024">
                         <input type="hidden" name="chat_id" value="{{$chat->id}}">
                         <button class="absolute mt-[10px] right-[16px] z-[52] rounded-full bg-[#0066ff] w-[40px] h-[40px] text-white pl-[16px]" type="submit">
                             <svg width="11" height="18" viewBox="0 0 11 18" fill="none" xmlns="http://www.w3.org/2000/svg">

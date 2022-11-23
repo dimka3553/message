@@ -34,8 +34,8 @@
                     @method('PUT')
                     @csrf
                     <div class="">
-                        <input type="text" name="name" placeholder="Name" maxlength="80" class="bg-transparent w-full min-w-0 text-[18px]" value="{{$user->name}}" required>
-                        <input type="text" name="username" maxlength="50" placeholder="Username" class="bg-transparent min-w-0  w-full mt-[-0.5px]" value="{{$user->username}}" required>
+                        <input type="text" name="name" placeholder="Name" maxlength="80" class="bg-transparent w-full min-w-0 text-[18px] h-[40px] pl-[16px] border-[1px] border-[#dddddd]" value="{{$user->name}}" required>
+                        <input type="text" name="username" maxlength="50" placeholder="Username" class="bg-transparent min-w-0  w-full h-[40px] pl-[16px] border-[1px] border-[#dddddd]" value="{{$user->username}}" required>
                         <input type="submit" value="" class="userinfosubmit bg-[transparent] h-0 w-0 hidden">
                     </div>
                 </div>

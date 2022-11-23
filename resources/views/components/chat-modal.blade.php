@@ -36,18 +36,18 @@
                 @method('PUT')
                 @csrf
                 <div class="h-[80] items-center flex">
-                    <input type="text" name="name" placeholder="Name" maxlength="80" class="bg-transparent w-full h-[40px] rounded-l-[8px] min-w-0 text-[18px]" value="{{$chat->name}}" required>
+                    <input type="text" name="name" placeholder="Name" maxlength="80" class="bg-transparent w-full h-[40px] rounded-l-[8px] min-w-0 text-[18px] pl-[16px] border-[1px] border-[#dddddd]" value="{{$chat->name}}" required>
                     <button type="submit" class="saveuserinfo border-[#0066ff] border-[1px] text-[#0066ff] rounded-r-[8px] w-[50%] w-full h-[40px]">Save</button>
                 </div>
             </div>
         </div>
     </form>
    <div>
-       <div class="h-[50px] flex items-center justify-between px-5 shadow-sm relative">
+       <div class="h-[50px] flex items-center justify-between px-5 shadow-sm sticky top-[180px] bg-white">
            <form class="absolute flex hidden addusersform w-full right-0 pl-[100px] mr-[80px] " action="{{route('chats.update', $chat)}}" method="POST" enctype="multipart/form-data">
                @method('PUT')
                @csrf
-               <input type="text" name="users" placeholder="usernames" maxlength="300" class="w-full h-[40px] min-w-0 text-[18px] rounded-l-[8px] bg-white " value="" required>
+               <input type="text" name="users" placeholder="usernames" maxlength="300" class="w-full h-[40px] min-w-0 text-[18px] rounded-l-[8px] bg-white pl-[16px] border-[1px] border-[#dddddd]" value="" required>
                <input type="hidden" name="name" value="{{$chat->name}}">
                <button type="submit" class="saveuserinfo border-[#0066ff] border-[1px] text-[#0066ff] rounded-r-[8px] bg-white w-[50%] w-full h-[40px]">Add</button>
            </form>
@@ -74,15 +74,18 @@
            </div>
 
        </div>
-       @foreach($chat->users as $user)
-            <div class="flex items-center gap-[16px] px-5 py-2">
-                <x-user-image :user="$user" :size="40"/>
-                <div>
-                    <p class="font-bold text-[16px] text-[#{{substr(hash('ripemd160', $user->email),0,6)}}]">{{$user->name}}</p>
-                    <p class="text-[13px] text-[#888888]">{{'@'}}{{$user->username}}</p>
-                </div>
-            </div>
-       @endforeach
+       <div class="chatusers">
+           @foreach($chat->users as $user)
+               <div class="flex items-center gap-[16px] px-5 py-3">
+                   <x-user-image :user="$user" :size="40"/>
+                   <div>
+                       <p class="font-bold text-[16px] text-[#{{substr(hash('ripemd160', $user->email),0,6)}}]">{{$user->name}}</p>
+                       <p class="text-[13px] text-[#888888]">{{'@'}}{{$user->username}}</p>
+                   </div>
+               </div>
+           @endforeach
+       </div>
+
    </div>
 
 </div>
@@ -136,3 +139,4 @@
 
     document.getElementById("avatarchat").addEventListener('change', PreviewImageChat);
 </script>
+
