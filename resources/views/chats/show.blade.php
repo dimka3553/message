@@ -32,8 +32,11 @@
                         </svg>
                     </div>
                 </div>
+                <div id="livemessages">
+                    <livewire:messages :chat="$chat"/>
+                </div>
 
-                <livewire:messages :chat="$chat"/>
+                <div class="sentmessages"></div>
                 <form method="post" action="{{url('/message/save')}} " id="sendmessage" enctype="multipart/form-data">
                     @csrf
                     @method('post')
@@ -124,7 +127,7 @@
         $('.sendimagemodaloverlay').removeClass('active');
         $('input[name="body"]').attr('required', 'required');
     });
-    
+
     $(document).on('paste', 'input[name="body"]', function (e) {
         var items = (e.clipboardData || e.originalEvent.clipboardData).items;
         for (index in items) {
@@ -145,16 +148,43 @@
     });
 
 
+    // stop the page from reloading on submit
+$(document).on('submit', '#sendmessage', function (e) {
+        e.preventDefault();
+        var form = $(this);
+        var formData = new FormData(form[0]);
+        $('.sendimage').val('');
+        $('.sendimagemodal').removeClass('active');
+        $('.sendimagemodaloverlay').removeClass('active');
+        $('input[name="body"]').attr('required', 'required');
+        $('input[name="body"]').val('');
+        $('input[name="caption"]').val('');
+        $('.sendimagepreview').attr('src', '');
+        $.ajax({
+            url: form.attr('action'),
+            type: form.attr('method'),
+            enctype: form.attr('enctype'),
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                // console.log(response);
+            },
+            error: function (response) {
+                // console.log(response);
+            }
+        });
+    });
+
 
 
 </script>
 
 <script>
-    function scrollToBottom() {
+    // scroll to bottom of window on load
+    $(window).on('load', function () {
         window.scrollTo(0, document.body.scrollHeight);
-    }
-
-    scrollToBottom();
+    });
 </script>
 
 
@@ -178,54 +208,3 @@
         }
     }
 </style>
-
-<script>
-
-    {{--document.getElementById('sendmessage').addEventListener('submit', function (e) {--}}
-    {{--    // e.preventDefault();--}}
-    {{--    document.getElementById('allmessages').removeAttribute('wire:poll');--}}
-
-    {{--    var form = this;--}}
-    {{--    var data = new FormData(form);--}}
-    {{--    var xhr = new XMLHttpRequest();--}}
-    {{--    form.reset();--}}
-    {{--    var messages = document.getElementById('allmessages');--}}
-    {{--    messages.innerHTML += `--}}
-    {{--    <div class="flex gap-[16px] p-[16px] break-words message">--}}
-    {{--        <div class="pt-[3.5px]">--}}
-    {{--            @if( $user->media->first()?->getUrl('avatar') !== null)--}}
-
-    {{--    <img src="{{$user->media->first()?->getUrl('avatar')}}" alt="user image" class="min-h-[40px] min-w-[40px] w-[40px] h-[40px] rounded-full">--}}
-    {{--            @else--}}
-    {{--    <div class="w-[40px] h-[40px] rounded-full min-h-[40px] min-w-[40px]  bg-[#{{substr(hash('ripemd160', $user->email),0,6)}}] items-center justify-center flex">--}}
-    {{--                    <p class="text-[18px] font-bold text-[#ffffff] ">{{$user->name[0]}}</p>--}}
-    {{--                </div>--}}
-    {{--            @endif--}}
-
-    {{--    </div>--}}
-    {{--    <div class="w-full break-words msg-text min-w-0">--}}
-    {{--        <p class="text-[#{{substr(hash('ripemd160', $user->email),0,6)}}] font-bold ">--}}
-    {{--                {{$user->name}} (You) <span class="text-[12px] font-normal text-[#999999]">now</span>--}}
-    {{--            </p>--}}
-    {{--            <p class="break-words w-full">--}}
-    {{--                ${data.get('body')}--}}
-    {{--            </p>--}}
-    {{--        </div>--}}
-    {{--    </div>--}}
-    {{--    `--}}
-    {{--    window.scrollTo({--}}
-    {{--        top: document.body.scrollHeight,--}}
-    {{--        behavior: 'smooth'--}}
-    {{--    });--}}
-
-    {{--    xhr.open(form.method, form.action);--}}
-    {{--    xhr.send(data);--}}
-    {{--    xhr.onload = function () {--}}
-    {{--        //wait for 1 second and then add wire:poll and wire:poll.id--}}
-    {{--        setTimeout(function () {--}}
-    {{--            document.getElementById('allmessages').setAttribute('wire:poll', '');--}}
-    {{--        }, 1000);--}}
-    {{--    }--}}
-    {{--});--}}
-
-</script>

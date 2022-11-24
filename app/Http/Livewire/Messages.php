@@ -9,6 +9,7 @@ class Messages extends Component
     public $chat;
 
 
+
     public function render()
     {
         return view('livewire.messages');

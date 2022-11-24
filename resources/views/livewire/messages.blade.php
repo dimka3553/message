@@ -3,8 +3,12 @@
         <x-message :message="$message" :user="auth()->user()"/>
     @endforeach
     <script>
-
         let isAtBottom = true;
+
+        //on load set is at bottom to true
+        $(document).ready(function(){
+            isAtBottom = true;
+        });
 
         function isScrolledToBottom() {
             const scrollableHeight = document.documentElement.scrollHeight;
@@ -18,16 +22,20 @@
             isAtBottom = isScrolledToBottom();
         });
 
-        document.addEventListener("DOMContentLoaded", () => {
-            Livewire.hook('element.updated', (el, component) => {
-                if(isAtBottom){
-                    //scroll to the bottom of page with a smooth animation over 0.2 seconds
+        let lastHeight = document.documentElement.scrollHeight;
+        let newHeight = document.documentElement.scrollHeight;
+        setInterval(function() {
+            newHeight = document.documentElement.scrollHeight;
+            if(newHeight != lastHeight) {
+                lastHeight = newHeight;
+                if(isAtBottom) {
                     window.scrollTo({
-                        top: document.body.scrollHeight,
+                        top: document.documentElement.scrollHeight,
                         behavior: 'smooth'
                     });
                 }
-            })
-        });
+            }
+        }, 300);
+
     </script>
 </div>

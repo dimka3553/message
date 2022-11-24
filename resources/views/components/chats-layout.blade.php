@@ -8,9 +8,9 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script
-        src="https://code.jquery.com/jquery-3.6.1.slim.min.js"
-        integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA="
-        crossorigin="anonymous">
+        src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+        crossorigin="anonymous"></script>
     </script>
 
     <!-- Fonts -->
