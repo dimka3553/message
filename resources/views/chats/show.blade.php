@@ -53,7 +53,7 @@
                             </svg>
                         </label>
                         <input type="file" name="attachment" id="attachment" class="hidden sendimage" accept="image/*">
-                        <input autocomplete="off" type="text" name="body" class="w-full h-[60px] !outline-0 "
+                        <input autocomplete="off" type="text" name="body" class="w-full h-[60px] !outline-0 bodyinput"
                                placeholder="Send Message..." autofocus required maxlength="1024">
                         <input type="hidden" name="chat_id" value="{{$chat->id}}">
                         <button
@@ -189,6 +189,11 @@ $(document).on('submit', '#sendmessage', function (e) {
 
 
 <style>
+    .bodyinput{
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
     @media (max-width: 950px) {
         .sidebar {
             display: none;
