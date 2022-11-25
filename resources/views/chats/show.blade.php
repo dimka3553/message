@@ -148,7 +148,6 @@
     });
 
 
-    // stop the page from reloading on submit
 $(document).on('submit', '#sendmessage', function (e) {
         e.preventDefault();
         var form = $(this);
@@ -159,6 +158,7 @@ $(document).on('submit', '#sendmessage', function (e) {
         $('input[name="body"]').attr('required', 'required');
         $('input[name="body"]').val('');
         $('input[name="caption"]').val('');
+        $('input[name="caption"]').focus();
         $('.sendimagepreview').attr('src', '');
         $.ajax({
             url: form.attr('action'),
@@ -175,7 +175,6 @@ $(document).on('submit', '#sendmessage', function (e) {
             }
         });
     });
-
 
 
 </script>
