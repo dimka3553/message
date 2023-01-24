@@ -19,7 +19,7 @@ class Kernel extends ConsoleKernel
 
         //yearly backups
         $schedule->command('backup:run --only-db')->yearly()->wednesdays()->at('4:15')->timezone('Europe/Madrid');
-        
+
         $schedule->command('backup:clean')->daily()->at('4:20')->timezone('Europe/Madrid');
     }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Chat;
 use App\Models\Message;
 use Illuminate\Http\Request;
+use OpenAI\Laravel\Facades\OpenAI;
 
 class MessageController extends Controller
 {
@@ -29,6 +30,24 @@ class MessageController extends Controller
                 $message->chat_id = $request->chat_id;
                 $message->sender_id = auth()->id();
                 $message->save();
+
+                //if the user with username GPT is in the chat then send the message to the GPT
+                //if the message  body contains @gpt then send the message to the GPT
+
+                if(auth()->user()->chats->find($request->chat_id)->users->contains('username', '=', 'GPT')&& str_contains($message->body, '@gpt') !== false){
+                    $gpt = auth()->user()->chats->find($request->chat_id)->users->where('username', '=', 'GPT')->first();
+                    $prompt = $message->body;
+                    $result = OpenAI::completions()->create([
+                        'model' => 'text-davinci-003',
+                        'max_tokens' => 350,
+                        'prompt' => $prompt,
+                    ]);
+                    $gpt_message = new Message;
+                    $gpt_message->body = $result->choices[0]->text;
+                    $gpt_message->chat_id = $request->chat_id;
+                    $gpt_message->sender_id = $gpt->id;
+                    $gpt_message->save();
+                }
             }
         }
 
