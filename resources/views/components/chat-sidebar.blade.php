@@ -14,7 +14,7 @@
             </div>
 
 
-            <input type="text" placeholder="Search" class="bg-[#f4f6f6] h-[40px] w-full outline-0 border-0 rounded-[10px] h-[40px] pl-[16px] ">
+            <x-application-logo></x-application-logo>
         </div>
        <livewire:sidebar-chats :user="$user" :activechat="$activechat"/>
 
@@ -40,4 +40,3 @@
 
 <x-create-chat-modal />
 <x-settings-modal :user="$user"/>
-
