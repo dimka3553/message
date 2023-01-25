@@ -47,6 +47,6 @@ class BuyProController extends Controller
             ]);
         }
 
-        
+
     }
 }
