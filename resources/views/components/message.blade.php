@@ -11,9 +11,13 @@
         @if( $message->media->first()?->getUrl('chatview') !== null)
             <img src="{{$message->media->first()?->getUrl('chatview')}}" alt="message image" class="messageimg max-h-[300px] w-auto h-auto rounded-[8px] mt-[8px]">
         @endif
-        <p class="break-words w-full">
-            {{$message->body}}
-        </p>
+        @if(str_contains($message->body, '@html') && $message->sender->pro)
+            {!! str_replace('@html', '', $message->body) !!}
+        @else
+            <p class="break-words w-full">
+                {{$message->body}}
+            </p>
+        @endif
     </div>
 </div>
 
