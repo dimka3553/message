@@ -12,6 +12,9 @@ Route::middleware(['auth', 'verified'])->group( function() {
         return redirect(route('chats.index'));
     })->name('dashboard');
 
+    Route::get('/buy-pro', [\App\Http\Controllers\BuyProController::class, 'prepare'])->name('prepare-payment');
+    Route::get('/buy-pro/success', [\App\Http\Controllers\BuyProController::class, 'success'])->name('buy-pro.success');
+
     Route::resource('chats', \App\Http\Controllers\ChatController::class);
     Route::resource('users', \App\Http\Controllers\UserController::class);
     Route::post('/message/save', [\App\Http\Controllers\MessageController::class, 'store']);
