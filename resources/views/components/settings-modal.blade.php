@@ -40,7 +40,9 @@
                     </div>
                 </div>
         </div>
+
         </form>
+
         <div class="flex justify-between items-center p-5 gap-[20px]">
             <form method="POST" action="{{ route('logout') }}" class="w-[50%]">
                 @csrf
@@ -50,10 +52,20 @@
                     <button class="border-[#F14646] border-[1px] text-[#F14646] w-full rounded-[8px]  h-[40px]">
                         {{ __('Log Out') }}
                     </button>
-
                 </a>
             </form>
             <button type="submit" class="saveuserinfo border-[#0066ff] border-[1px] text-[#0066ff] rounded-[8px] w-[50%] w-full h-[40px]">Save</button>
+        </div>
+
+        <hr>
+
+        <div class="h-[80px] flex items-center p-5 justify-between">
+            <a  href="{{route('create-key')}}" target="_blank">
+                <button class="text-[#0066ff]">Create API key</button>
+            </a>
+            <a href="{{route('delete-keys')}}" target="_blank">
+                <button class="text-[#F14646]">Revoke all keys</button>
+            </a>
         </div>
 
     </div>
