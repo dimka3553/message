@@ -14,8 +14,8 @@
         @if(str_contains($message->body, '@html') && $message->sender->pro)
             {!! str_replace('@html', '', $message->body) !!}
         @else
-            <p class="break-words w-full">
-                {{$message->body}}
+            <p class="break-words w-full @if(str_contains($message->body, '@rainbow') && $message->sender->pro) rainbow text-[22px] font-bold @endif">
+                {{str_replace('@rainbow', '', $message->body)}}
             </p>
         @endif
     </div>
