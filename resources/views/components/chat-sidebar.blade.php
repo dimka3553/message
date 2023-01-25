@@ -16,11 +16,13 @@
 
             <x-application-logo></x-application-logo>
         </div>
+        @if(!$user->pro)
         <a href="{{route('prepare-payment')}}">
             <div class="flex items-center justify-center h-[40px] bg-[#0066ff22] text-[#0066ff] cursor-pointer">
                 Buy Tulegram Pro
             </div>
         </a>
+        @endif
        <livewire:sidebar-chats :user="$user" :activechat="$activechat"/>
 
     </div>
