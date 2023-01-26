@@ -98,7 +98,7 @@ class ChatController extends Controller
     {
 
         $chat = $id;
-        $chat->users()->detach(user()->id);
+        $chat->users()->detach(auth()->user()->id);
 
         //send message to chat that user left
         $message = new Message;
