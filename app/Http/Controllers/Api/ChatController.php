@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Chat;
+use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -106,5 +107,24 @@ class ChatController extends Controller
 
         $chat->save();
         return(response()->json(['success' => 'chat updated'], 200));
+    }
+
+    public function leave($id)
+    {
+        $chat = Chat::find($id);
+        $chat->users()->detach(auth()->user()->id);
+
+        //send message to chat that user left
+        $message = new Message;
+        $message->body = auth()->user()->name . ' left the chat';
+        $message->sender_id = auth()->user()->id;
+        $message->chat_id = $chat->id;
+        $message->save();
+
+        if($chat->users->count() == 0){
+            $chat->delete();
+        }
+
+        return response()->json(['success' => 'You left the chat'], 200);
     }
 }

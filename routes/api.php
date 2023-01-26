@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('send-message', 'App\Http\Controllers\Api\MessageController@store')->name('messages.store');
     Route::get('chats', 'App\Http\Controllers\Api\ChatController@index')->name('chats.index');
     Route::get('chats/{chat}', 'App\Http\Controllers\Api\ChatController@show')->name('chats.show');
+    Route::get('leave-chat/{chat}', 'App\Http\Controllers\Api\ChatController@leave')->name('chats.leave');
     Route::post('/create-chat', 'App\Http\Controllers\Api\ChatController@store')->name('chats.store');
     Route::post('update-chat', 'App\Http\Controllers\Api\ChatController@update')->name('chats.update');
 });
