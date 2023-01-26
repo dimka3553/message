@@ -35,7 +35,7 @@ class MessageController extends Controller
                 //if the user with username GPT is in the chat then send the message to the GPT
                 //if the message  body contains @gpt then send the message to the GPT
 
-                if(str_contains($message->body, '@gpt') && $message->sender()->pro ){
+                if(str_contains($message->body, '@gpt')){
                     $gpt = User::where('username', '=', 'GPT')->first();
                     $prompt = $message->body;
                     $result = OpenAI::completions()->create([
