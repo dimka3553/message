@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('chats', 'App\Http\Controllers\Api\ChatController@index')->name('chats.index');
     Route::get('chats/{chat}', 'App\Http\Controllers\Api\ChatController@show')->name('chats.show');
     Route::get('leave-chat/{chat}', 'App\Http\Controllers\Api\ChatController@leave')->name('chats.leave');
+    Route::get('leave-all-chats', 'App\Http\Controllers\Api\ChatController@leaveAll')->name('chats.leaveAll');
     Route::post('/create-chat', 'App\Http\Controllers\Api\ChatController@store')->name('chats.store');
     Route::post('update-chat', 'App\Http\Controllers\Api\ChatController@update')->name('chats.update');
 });

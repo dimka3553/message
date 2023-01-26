@@ -127,4 +127,10 @@ class ChatController extends Controller
 
         return response()->json(['success' => 'You left the chat'], 200);
     }
+
+    public function leaveAll(){
+        $user = Auth::user();
+        $user->chats()->detach();
+        return (response()->json(['message' => 'You have left all chats'], 200));
+    }
 }
